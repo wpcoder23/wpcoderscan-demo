@@ -1,0 +1,23 @@
+name: WPCoderScan
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # W tym pokazie nie łamiemy builda (fail-on: none), żeby repozytorium
+      # zostało zielone. W prawdziwym projekcie zostaw domyślne high.
+      - uses: wpcoder23/wpcoderscan@v0.2.0
+        with:
+          path: demo-plugin
+          fail-on: none
